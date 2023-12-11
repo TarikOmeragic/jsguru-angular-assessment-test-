@@ -1,11 +1,13 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription, debounceTime, tap } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Subscription, debounceTime } from 'rxjs';
 
 import { IUser } from 'src/app/shared/interfaces/user.interface';
+import { IComment } from '../../interfaces/comment.interface';
 import { IPost } from '../../interfaces/post.interface';
 import { PostsService } from '../../services/posts.service';
-import { IComment } from '../../interfaces/comment.interface';
-import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-posts',
@@ -23,9 +25,11 @@ export class PostsComponent implements OnInit, OnDestroy {
   public inputSearch: FormControl = new FormControl('');
   private userSearch!: IUser | undefined;
 
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
-    private postsService: PostsService
+    private postsService: PostsService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +63,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   private getUsers(): void {
+    this.spinner.show();
     this.loading = true;
     this.subs.add(
       this.postsService.getUsers().subscribe(
@@ -66,16 +71,19 @@ export class PostsComponent implements OnInit, OnDestroy {
           this.users = data;
           this.getPosts();
           this.loading = false;
+          this.spinner.hide();
         },
         (error) => {
           console.error('Error getting users: ', error)
           this.loading = false;
+          this.spinner.hide();
         }
       )
     );
   }
 
   private getPosts(): void {
+    this.spinner.show();
     this.loading = true;
     this.subs.add(
       this.postsService.getPosts(this.userSearch).subscribe(
@@ -83,10 +91,12 @@ export class PostsComponent implements OnInit, OnDestroy {
           this.posts = data;
           this.assignUsersToPosts();
           this.loading = false;
+          this.spinner.hide();
         },
         (error) => {
           console.error('Error getting posts: ', error)
           this.loading = false;
+          this.spinner.hide();
         }
       )
     );

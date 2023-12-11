@@ -2,19 +2,6 @@
 
 :host {
     @include host;
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-
-    .spinner {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-    }
 
     .photos {
         flex: 1;

@@ -2,6 +2,12 @@
 
 :host {
     @include host;
-    flex: 1;
-    padding: 2rem;
+
+    header {
+        width: 100%;
+    }
+
+    main {
+        
+    }
 }

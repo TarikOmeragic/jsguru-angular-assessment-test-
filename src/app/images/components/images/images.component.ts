@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-
-import { ImagesService } from '../../services/images.service';
-import { Subscription, debounce, debounceTime } from 'rxjs';
-import { IPhoto } from '../../interfaces/image.interface';
 import { MatPaginator } from '@angular/material/paginator';
-import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
+import { IPhoto } from '../../interfaces/image.interface';
+import { ImagesService } from '../../services/images.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-images',
@@ -22,7 +22,8 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
-    private imagesService: ImagesService
+    private imagesService: ImagesService,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -38,16 +39,19 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private getImages(): void {
+    this.spinner.show();
     this.loading = true;
     this.subs.add(
       this.imagesService.getPhotos(this.page + 1, this.limit).subscribe(
         (data: Array<IPhoto>) => {
           this.photos = data;
           this.loading = false;
+          this.spinner.hide();
         },
         (error) => {
           console.error('Error getting photos: ', error)
           this.loading = false;
+          this.spinner.hide();
         }
       )
     );

@@ -1,12 +1,18 @@
-<mat-spinner *ngIf="loading" class="spinner"></mat-spinner>
-<div class="photos"
+<spinner></spinner>
+<div 
+    class="photos"
     *ngIf="!loading">
-    <div *ngFor="let image of photos"
+    <div 
+        *ngFor="let image of photos"
         class="photos__photo">
-        <img [src]="image.thumbnailUrl" [alt]="image.thumbnailUrl" [title]="image.title">
+        <img 
+            [src]="image.thumbnailUrl" 
+            [alt]="image.thumbnailUrl" 
+            [title]="image.title">
     </div>
 </div>
-<div class="pagination">
+<div 
+    class="pagination">
     <mat-paginator 
         #paginator 
         showFirstLastButtons
@@ -14,8 +20,9 @@
         [length]="5000"
         (page)="changePage($event)">
     </mat-paginator>
-    <input placeholder="Page size" 
+    <input 
         type="number" 
+        placeholder="Page size" 
         [(ngModel)]="limit" 
         (ngModelChange)="limitChange($event)"
         min="1"

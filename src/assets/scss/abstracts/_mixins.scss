@@ -42,7 +42,12 @@
 }
 
 @mixin host {
-  display: block;
   height: calc(100% - 12rem);
   width: 100%;
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }

@@ -21,7 +21,6 @@ export class ImagesService {
     limit: number
   ) {
     let url = `${this.url}${ApiPathsEnum.PHOTOS}?_limit=${limit}&_page=${page}`;
-
     return this.requestService.get<Array<IPhoto>>(url);
   }
 }

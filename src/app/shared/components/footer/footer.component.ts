@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-footer',
   template: `
   <footer>
-    Angular Assessment Test - Omeragic Tarik
+    &copy; 2023 Angular Assessment Test by Omeragic Tarik
   </footer>
 `,
   styleUrls: ['./footer.component.scss']

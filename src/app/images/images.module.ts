@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { ImagesRoutingModule } from './images-routing.module';
 import { ImagesComponent } from './components/images/images.component';
+import { ImagesRoutingModule } from './images-routing.module';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { ImagesComponent } from './components/images/images.component';
   ],
   imports: [
     CommonModule,
-    ImagesRoutingModule
+    ImagesRoutingModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    FormsModule
   ]
 })
 export class ImagesModule { }

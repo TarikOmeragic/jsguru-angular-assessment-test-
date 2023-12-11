@@ -19,8 +19,11 @@ export class PostsService {
     private requestService: RequestService
   ) {}
 
-  getPosts() {
+  getPosts(user: IUser | undefined) {
     let url = `${this.url}${ApiPathsEnum.POSTS}`;
+    if (user) {
+      url += `?userId=${user.id}`;
+    }
     return this.requestService.get<Array<IPost>>(url);
   }
 

@@ -2,8 +2,6 @@
 
 :host {
     header {
-        position: fixed;
-        top: 0;
         height: 7rem;
         width: 100%;
         background-color: $color-base;
@@ -35,10 +33,6 @@
             :not(:last-child) {
                 margin-right: 1rem;
             }
-        }
-
-        li {
-
         }
 
         a {

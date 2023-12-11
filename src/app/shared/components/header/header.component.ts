@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
 import { INavbarOption } from '../../interfaces/navbar-option.interface';
 
 @Component({
@@ -10,8 +11,8 @@ import { INavbarOption } from '../../interfaces/navbar-option.interface';
 export class HeaderComponent {
 
   public navbarOptions: Array<INavbarOption> = [
-    { route: '/posts', name: 'Posts' },
-    { route: '/images', name: 'Images' }
+    { route: ApiPathsEnum.POSTS, name: 'Posts' },
+    { route: ApiPathsEnum.PHOTOS, name: 'Photos' }
   ];
 
 }

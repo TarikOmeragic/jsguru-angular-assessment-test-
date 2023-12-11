@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime, tap } from 'rxjs';
 
 import { IUser } from 'src/app/shared/interfaces/user.interface';
 import { IPost } from '../../interfaces/post.interface';
 import { PostsService } from '../../services/posts.service';
 import { IComment } from '../../interfaces/comment.interface';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-posts',
@@ -16,20 +17,45 @@ export class PostsComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   public posts: Array<IPost> = [];
   public users: Array<IUser> = [];
+  public columns: Array<string> = ['id', 'title', 'name'];
   public loading: boolean = false;
+  public expandedElement!: IPost | null;
+  public inputSearch: FormControl = new FormControl('');
+  private userSearch!: IUser | undefined;
+
 
   constructor(
     private postsService: PostsService
   ) {}
 
   ngOnInit(): void {
-
     this.getUsers();
-    
+    this.defineSubscriptions();
   }
 
   ngOnDestroy(): void {
     this.subs.unsubscribe();
+  }
+
+  private defineSubscriptions(): void {
+    this.subs.add(
+      this.inputSearch.valueChanges
+        .pipe(debounceTime(500))
+        .subscribe((searchString: string) => {
+          this.getPostsByUserSearch(searchString);
+        })
+    );
+  }
+
+  private getPostsByUserSearch(searchString: string): void {
+    if (searchString.length) {
+      this.userSearch = this.users.find((user: IUser) => {
+        return user.username.toLowerCase().includes(searchString.toLowerCase()) || user.name.toLowerCase().includes(searchString.toLowerCase()) ? user : undefined;
+      });
+    } else {
+      this.userSearch = undefined;
+    }
+    this.getPosts();
   }
 
   private getUsers(): void {
@@ -52,7 +78,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   private getPosts(): void {
     this.loading = true;
     this.subs.add(
-      this.postsService.getPosts().subscribe(
+      this.postsService.getPosts(this.userSearch).subscribe(
         (data) => {
           this.posts = data;
           this.assignUsersToPosts();

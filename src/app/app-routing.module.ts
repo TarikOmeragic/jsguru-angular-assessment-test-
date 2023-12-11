@@ -12,7 +12,7 @@ const routes: Routes = [
     loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
   },
   {
-    path: 'images',
+    path: 'photos',
     loadChildren: () => import('./images/images.module').then(m => m.ImagesModule)
   },
   {

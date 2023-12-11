@@ -3,7 +3,7 @@ import { IGeoData } from "./geo-data.interface";
 export interface IUser {
     id: number;
     name: string;
-    userName: string;
+    username: string;
     email: string;
     address: IUserAddress;
     phone: string;

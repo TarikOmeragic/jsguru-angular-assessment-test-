@@ -1,0 +1,63 @@
+/* --- FONTS --- */
+$h1-font-size: 4rem;
+$h2-font-size: 3.2rem;
+$h3-font-size: 2.8rem;
+$h4-font-size: 2.4rem;
+$h5-font-size: 2rem;
+$h6-font-size: 1.6rem;
+
+$h1-line-height: 4.8rem;
+$h2-line-height: 3.9rem;
+$h3-line-height: 3.4rem;
+$h4-line-height: 2.9rem;
+$h5-line-height: 2.4rem;
+$h6-line-height: 1.9rem;
+
+/* --- COLORS --- */
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-base-light: #6ba9e3;
+$color-base: #006bcf;
+$color-base-dark: #004b91;
+
+$color-gray-light: #b3b9c4;
+$color-gray: #98a1b0;
+$color-gray-dark: #7a8699;
+
+$color-green-light: #6bdbab;
+$color-green: #00c16e;
+$color-green-dark: #00874d;
+
+$color-red-light: #e3797d;
+$color-red: #ce181e;
+$color-red-dark: #901115;
+
+$color-yellow-light: #ffcc36;
+$color-yellow: #ffc10d;
+$color-yellow-dark: #b38709;
+
+:root {
+    --color-black: #000000;
+    --color-white: #ffffff;
+
+    --color-base-light: #6ba9e3;
+    --color-base: #006bcf;
+    --color-base-dark: #004b91;
+
+    --color-gray-light: #b3b9c4;
+    --color-gray: #98a1b0;
+    --color-gray-dark: #7a8699;
+
+    --color-green-light: #6bdbab;
+    --color-green: #00c16e;
+    --color-green-dark: #00874d;
+
+    --color-red-light: #e3797d;
+    --color-red: #ce181e;
+    --color-red-dark: #901115;
+
+    --color-yellow-light: #ffcc36;
+    --color-yellow: #ffc10d;
+    --color-yellow-dark: #b38709;
+}

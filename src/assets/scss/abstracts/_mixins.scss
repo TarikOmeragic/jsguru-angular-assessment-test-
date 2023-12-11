@@ -1,0 +1,47 @@
+@mixin button {
+
+  &:hover {
+
+  }
+}
+
+@mixin respond($breakpoint) {
+  /*
+
+    px / 16px (browser default) = em
+
+    phone:            37.5em    (600px)
+    tablet-portrait:  56.25em   (900px)
+    tablet-landscape: 75em      (1200px)
+    
+  */
+
+  @if $breakpoint == phone {
+    @media (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == tablet-portrait {
+    @media (max-width: 56.25em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == tablet-landscape {
+    @media (max-width: 75em) {
+      @content;
+    }
+  }
+}
+
+@mixin mediaNoPrint {
+  @media print {
+    display: none;
+  }
+}
+
+@mixin host {
+  height: calc(100% - 12rem);
+  width: 100%;
+}

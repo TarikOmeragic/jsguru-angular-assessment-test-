@@ -1,0 +1,38 @@
+@import "./fonts";
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /*
+    1rem == 10px (or relative to browser defaults 62.5%)
+  */
+  font-size: 62.5%;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 400;
+  color: $color-black;
+  background-color: $color-white;
+
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.3rem;
+    background: $color-gray-light;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $color-gray-light;
+    border-radius: 2.25rem;
+    background-clip: padding-box;
+    height: 5rem;
+  }
+}

@@ -1,0 +1,59 @@
+.button {
+    height: 4rem;
+    padding: 1rem 2rem;
+    color: $color-white;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 0.4rem;
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+
+    img {
+      margin-right: 1rem;
+  
+      &.margin-right-unset {
+        margin-right: unset;
+      }
+    }
+    
+    &.disabled {
+      opacity: 0.7;
+    }
+
+    &--base {
+      color: $color-white;
+      background: $color-base;
+  
+      &:hover {
+        background: $color-base-dark;
+      }
+    }
+
+    &--confirm {
+        color: $color-white;
+        background: $color-green;
+    
+        &:hover {
+          background: $color-green-dark;
+        }
+    }
+
+    &--warning {
+      background: $color-yellow;
+      color: $color-black;
+  
+      &:hover {
+        background: $color-yellow-dark;
+      }
+    }
+
+    &--danger {
+      background: $color-red;
+      color: $color-white;
+  
+      &:hover {
+        background: $color-red-dark;
+      }
+    }
+}

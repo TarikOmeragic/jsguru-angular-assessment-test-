@@ -1,0 +1,21 @@
+input {
+    width: 100%;
+    height: 5rem;
+    background: $color-white;
+    border: solid .1rem $color-gray;
+    border-radius: 0.4rem;
+    line-height: 2rem;
+    color: $color-black;
+    padding: 1rem;
+
+    &.validation-error {
+        border: 0.1rem solid $color-red;
+    }
+}
+
+::placeholder {
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 4rem;
+    color: $color-gray-dark;
+  }

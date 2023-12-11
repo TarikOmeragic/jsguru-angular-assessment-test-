@@ -1,0 +1,15 @@
+@import '../../../../styles.scss';
+
+:host {
+    footer {
+        position: fixed;
+        bottom: 0;
+        height: 5rem;
+        width: 100%;
+        background-color: $color-base;
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

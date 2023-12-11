@@ -1,0 +1,17 @@
+<header>
+    <nav>
+        <img src="/assets/svg/comments.svg" alt="Logo">
+        <ul>
+            <li *ngFor="let option of navbarOptions">
+                <a
+                    [routerLink]="option.route"
+                    [routerLinkActive]="'active'"
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    #rla="routerLinkActive"
+                >
+                    {{ option.name }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>

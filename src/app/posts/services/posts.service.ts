@@ -17,7 +17,7 @@ export class PostsService {
     private requestService: RequestService
   ) {}
 
-  getPosts(users: IUser[]) {
+  getPosts(users: Array<IUser>) {
     let url = `${this.url}${ApiPathsEnum.POSTS}?_embed=comments&_expand=user`;
     if (users.length) {
       users.forEach((user: IUser) => {

@@ -24,7 +24,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
   public expandedElement!: IPost | null;
   public inputSearch: FormControl = new FormControl('');
-  private userSearch: IUser[] = [];
+  private userSearch: Array<IUser> = [];
   public selectedPost: IPost | null = null;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;

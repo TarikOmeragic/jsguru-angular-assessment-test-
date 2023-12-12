@@ -1,15 +1,25 @@
 <spinner></spinner>
 <div 
     class="photos"
-    *ngIf="!loading">
-    <div 
-        *ngFor="let image of photos"
-        class="photos__photo">
-        <img 
-            [src]="image.thumbnailUrl" 
-            [alt]="image.thumbnailUrl" 
-            [title]="image.title">
-    </div>
+    [class.no-data]="!loading && !photos.length">
+    <ng-container 
+        *ngIf="!loading && photos.length">
+        <div 
+            *ngFor="let image of photos"
+            class="photos__photo">
+            <img 
+                [src]="image.thumbnailUrl" 
+                [alt]="image.thumbnailUrl" 
+                [title]="image.title">
+        </div>
+    </ng-container>
+    <ng-container 
+        *ngIf="!loading && !photos.length">
+        <h3>No photos</h3>
+    </ng-container>
+    <ng-container 
+        *ngIf="loading">
+    </ng-container>
 </div>
 <div 
     class="pagination">

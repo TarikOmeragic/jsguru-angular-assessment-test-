@@ -1,5 +1,5 @@
 input {
-    width: 30%;
+    width: 100%;
     height: 5rem;
     background: $color-white;
     border: solid .1rem $color-gray;
@@ -10,6 +10,19 @@ input {
 
     &.validation-error {
         border: 0.1rem solid $color-red;
+    }
+
+    &:focus-within {
+        border: 0.1rem solid $color-base-light;
+        border-color: $color-base-light;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        outline: none;
+    }
+
+    &:hover {
+        border: 0.1rem solid $color-base-light;
+        border-color: $color-base-light;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 }
 

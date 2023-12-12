@@ -7,6 +7,6 @@ export interface IPost {
     title: string;
     body: string;
     user?: IUser | null;
-    comments?: Array<IComment>;
+    comments: Array<IComment>;
     loading: boolean;
 }

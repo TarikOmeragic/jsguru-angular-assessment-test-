@@ -1,0 +1,26 @@
+:host {
+    h1 {
+        font-weight: 600;
+    }
+
+    .comments {
+        list-style: none;
+        margin-bottom: unset;
+        padding-left: unset;
+    
+        &__comment {
+            white-space: normal;
+
+            div {
+                &:first-child {
+                    font-weight: 600;
+                }
+            }
+                
+            
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}

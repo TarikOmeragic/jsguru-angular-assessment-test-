@@ -1,0 +1,23 @@
+<div *ngIf="comments">
+    <h1>
+        Comments
+    </h1>
+    <ul 
+        class="comments">
+        <li 
+            class="comments__comment"
+            *ngFor="let comment of comments">
+            <div class="comments__comment__title">
+                From <i>{{comment.email}}</i>: {{comment.name}}
+            </div>
+            <div>
+                {{comment.body}}
+            </div>
+        </li>
+    </ul>
+</div>
+<div *ngIf="!comments">
+    <h1>
+        No comments for this post
+    </h1>
+</div>

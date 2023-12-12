@@ -4,13 +4,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 
 import { SharedModule } from '../shared/shared.module';
+import { CommentsComponent } from './components/comments/comments.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostsRoutingModule } from './posts-routing.module';
 
 
 @NgModule({
   declarations: [
-    PostsComponent
+    PostsComponent,
+    CommentsComponent
   ],
   imports: [
     CommonModule,

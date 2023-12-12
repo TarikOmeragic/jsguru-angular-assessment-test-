@@ -1,9 +1,11 @@
 .form-group {
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 1rem;
+    position: relative;
 
     label {
         font-weight: 600;
@@ -18,4 +20,12 @@
     &__error {
         color: $color-red;
     }
+
+    &__close {
+        position: absolute;
+        right: 2rem;
+        bottom: 0;
+        line-height: 5rem;
+        cursor: pointer;
+      }
 }

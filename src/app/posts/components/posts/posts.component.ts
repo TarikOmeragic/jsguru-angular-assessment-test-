@@ -20,7 +20,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   public posts: Array<IPost> = [];
   public users: Array<IUser> = [];
   public columns: Array<string> = ['Id', 'Title', 'Name', 'Username'];
-  public loading: boolean = false;
+  public loading: boolean = true;
   public expandedElement!: IPost | null;
   public inputSearch: FormControl = new FormControl('');
   private userSearch!: IUser | undefined;
@@ -47,9 +47,15 @@ export class PostsComponent implements OnInit, OnDestroy {
       this.inputSearch.valueChanges
         .pipe(debounceTime(500))
         .subscribe((searchString: string) => {
-          this.getPostsByUserSearch(searchString);
+          this.getPostsByUserSearch(searchString.trim());
         })
     );
+  }
+
+  public clearInputSearch(): void {
+    if (this.inputSearch.value !== '') {
+      this.inputSearch.setValue('');
+    }
   }
 
   private getPostsByUserSearch(searchString: string): void {
@@ -71,7 +77,6 @@ export class PostsComponent implements OnInit, OnDestroy {
         (data) => {
           this.users = data;
           this.getPosts();
-          this.loading = false;
           this.spinner.hide();
         },
         (error) => {
@@ -88,7 +93,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.subs.add(
       this.postsService.getPosts(this.userSearch).subscribe(
-        (data) => {
+        (data: Array<IPost>) => {
           this.posts = data;
           this.assignUsersToPosts();
           this.loading = false;

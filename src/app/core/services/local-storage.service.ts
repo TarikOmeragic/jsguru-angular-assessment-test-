@@ -9,19 +9,19 @@ export class LocalStorageService {
   }
 
   getItem(key: string): string | null {
-    return localStorage.getItem(`app.${key}`);
+    return localStorage.getItem(`jsguru.${key}`);
   }
 
   setItem(key: string, item: string): void {
-    localStorage.setItem(`app.${key}`, item);
+    localStorage.setItem(`jsguru.${key}`, item);
   }
 
   removeItem(key: string): void {
-    localStorage.removeItem(`app.${key}`);
+    localStorage.removeItem(`jsguru.${key}`);
   }
 
   getStoragePath(): string {
-    return 'app';
+    return 'jsguru';
   }
 
   clear(): void {

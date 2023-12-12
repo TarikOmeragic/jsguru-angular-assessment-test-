@@ -16,25 +16,62 @@
       </div>
   </header>
   <main>
-      <!-- <table mat-table [dataSource]="posts" class="mat-elevation-z8">
-        
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
-            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let column of columns">
+              {{ column }}
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let post of posts">
+            <tr
+              [class.no-bottom-border]="selectedPost?.id === post.id"
+            >
+              <td>{{post.id}}</td>
+              <td>{{post.title}}</td>
+              <td>{{post.user?.name}}</td>
+              <td>{{post.user?.username}}</td>
+              <td 
+                class="clickable"
+                (click)="selectPost(post)">
+                <button 
+                  class="button button--base"
+                  *ngIf="!post.loading && selectedPost?.id === post.id">
+                  Close
+                </button>
+                <button 
+                  class="button button--base"
+                  *ngIf="!post.loading && selectedPost?.id !== post.id">
+                  Expand
+                </button>
+                <button 
+                  class="button button--base"
+                  *ngIf="post.loading">
+                  <i class="fa fa-spinner fa-spin"></i>
+                </button>
+              </td>
+            </tr>
+            <tr 
+              *ngIf="selectedPost?.id === post.id && !post.loading"
+              class="no-hover">
+              <td>&nbsp;</td>
+              <td [attr.colspan]="3">
+                <ul 
+                  class="comments">
+                  <li 
+                    class="comments__comment"
+                    *ngFor="let comment of post.comments">
+                    {{comment.name}}: {{comment.body}}
+                  </li>
+                </ul>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
           </ng-container>
-        
-          <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Title </th>
-            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-          </ng-container>
-        
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Weight </th>
-            <td mat-cell *matCellDef="let element"> {{element.user.name}} </td>
-          </ng-container>
-        
-          <tr mat-header-row *matHeaderRowDef="columns"></tr>
-          <tr mat-row *matRowDef="let row; columns: columns;"></tr>
-      </table> -->
+        </tbody>
+      </table>
   </main>
 </ng-container>

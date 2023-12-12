@@ -20,7 +20,7 @@ export class ImagesService {
     page: number,
     limit: number
   ) {
-    let url = `${this.url}${ApiPathsEnum.PHOTOS}?_limit=${limit}&_page=${page}`;
+    let url = `${this.url}${ApiPathsEnum.PHOTOS}?_page=${page}&_limit=${limit}`;
     return this.requestService.get<Array<IPhoto>>(url);
   }
 }

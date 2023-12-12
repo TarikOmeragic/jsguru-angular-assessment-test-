@@ -5,9 +5,24 @@
 
     header {
         width: 100%;
+        margin-bottom: 1rem;
     }
 
     main {
-        
+        width: 100%;
+        border: solid 0.1rem $color-gray;
+        border-radius: 0.6rem;
+        background-color: $color-white;
     }
+
+    .comments {
+        list-style: none;
+        margin-bottom: unset;
+        padding-left: unset;
+
+        &__comment {
+            white-space: normal;
+        }
+    }
+    
 }

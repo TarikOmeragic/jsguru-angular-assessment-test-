@@ -19,11 +19,12 @@ export class PostsComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   public posts: Array<IPost> = [];
   public users: Array<IUser> = [];
-  public columns: Array<string> = ['id', 'title', 'name'];
+  public columns: Array<string> = ['Id', 'Title', 'Name', 'Username'];
   public loading: boolean = false;
   public expandedElement!: IPost | null;
   public inputSearch: FormControl = new FormControl('');
   private userSearch!: IUser | undefined;
+  public selectedPost: IPost | null = null;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
@@ -126,6 +127,15 @@ export class PostsComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  public selectPost(post: IPost): void {
+    if (this.selectedPost && this.selectedPost?.id === post.id) {
+      this.selectedPost = null;
+    } else {
+      this.selectedPost = post;
+      !post.comments?.length ? this.getCommentsForPost(post) : null;
+    }
   }
 
 }

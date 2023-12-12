@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,6 @@ export class RequestService {
   private httpOptions = {
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: 'Bearer ' + 'token',
       responseType: 'json',
     },
   };

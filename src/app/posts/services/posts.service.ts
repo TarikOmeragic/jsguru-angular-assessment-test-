@@ -17,10 +17,12 @@ export class PostsService {
     private requestService: RequestService
   ) {}
 
-  getPosts(user: IUser | undefined) {
-    let url = `${this.url}${ApiPathsEnum.POSTS}?_embed=comments`;
-    if (user) {
-      url += `?userId=${user.id}`;
+  getPosts(users: IUser[]) {
+    let url = `${this.url}${ApiPathsEnum.POSTS}?_embed=comments&_expand=user`;
+    if (users.length) {
+      users.forEach((user: IUser) => {
+        url += `&userId=${user.id}`;
+      });
     }
     return this.requestService.get<Array<IPost>>(url);
   }

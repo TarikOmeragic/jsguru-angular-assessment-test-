@@ -24,7 +24,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   public loading: boolean = true;
   public expandedElement!: IPost | null;
   public inputSearch: FormControl = new FormControl('');
-  private userSearch!: IUser | undefined;
+  private userSearch: IUser[] = [];
   public selectedPost: IPost | null = null;
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -64,11 +64,11 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   private getPostsByUserSearch(searchString: string): void {
     if (searchString.length) {
-      this.userSearch = this.users.find((user: IUser) => {
+      this.userSearch = this.users.filter((user: IUser) => {
         return user.username.toLowerCase().includes(searchString.toLowerCase()) || user.name.toLowerCase().includes(searchString.toLowerCase()) ? user : undefined;
       });
     } else {
-      this.userSearch = undefined;
+      this.userSearch = [];
     }
     this.getPosts();
   }
@@ -99,7 +99,6 @@ export class PostsComponent implements OnInit, OnDestroy {
       this.postsService.getPosts(this.userSearch).subscribe(
         (data: Array<IPost>) => {
           this.posts = data;
-          this.assignUsersToPosts();
           this.loading = false;
           this.spinner.hide();
         },
@@ -110,16 +109,6 @@ export class PostsComponent implements OnInit, OnDestroy {
         }
       )
     );
-  }
-
-  private assignUsersToPosts(): void {
-    this.posts = this.posts.map((post: IPost) => {
-      const user = this.users.find((user: IUser) => user.id === post.userId);
-      return { 
-        ...post, 
-        user: user || null 
-      };
-    });
   }
 
   public selectPost(post: IPost): void {

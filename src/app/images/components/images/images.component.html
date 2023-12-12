@@ -26,15 +26,13 @@
     <mat-paginator 
         #paginator 
         showFirstLastButtons
-        [pageSize]="limit" 
+        [pageSize]="limit.value" 
         [length]="5000"
         (page)="changePage($event)">
     </mat-paginator>
-    <input 
-        type="number" 
-        placeholder="Page size" 
-        [(ngModel)]="limit" 
-        (ngModelChange)="limitChange($event)"
+    <input type="number"
+        placeholder="Page size"
+        [formControl]="limit"
         min="1"
     >
 </div>

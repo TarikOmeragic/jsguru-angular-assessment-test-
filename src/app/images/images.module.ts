@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { SharedModule } from '../shared/shared.module';
@@ -17,7 +17,8 @@ import { ImagesRoutingModule } from './images-routing.module';
     ImagesRoutingModule,
     MatPaginatorModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class ImagesModule { }

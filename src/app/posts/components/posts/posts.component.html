@@ -38,7 +38,7 @@
               [class.no-bottom-border]="selectedPost?.id === post.id"
               (click)="openPostDetails(post)">
               <td>{{post.id}}</td>
-              <td>{{post.title}}</td>
+              <td><b>{{post.title}}</b></td>
               <td>{{post.user?.name}}</td>
               <td>{{post.user?.username}}</td>
               <td 

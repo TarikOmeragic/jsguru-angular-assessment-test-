@@ -1,1 +1,43 @@
-<p>post-details works!</p>
+ <spinner></spinner>
+ <div 
+    *ngIf="post && user" 
+    class="wrapper">
+    <a [routerLink]="ApiPathsEnum.POSTS">
+        <i class="fa fa-solid fa-arrow-left"></i>
+    </a>
+    <article class="post-details">
+        <h2>{{ post.title }}</h2>
+        <section>{{ post.body }}</section>
+        <app-comments [comments]="post.comments"></app-comments>
+    </article>
+    <article class="user">
+        <h3>Author</h3>
+        <address>
+            <div class="user__details">
+                <label>Name</label>
+                <span>{{ user.name }}</span>
+            </div>
+            <div class="user__details">
+                <label>Username</label>
+                <span>{{ user.username }}</span>
+            </div>
+            <div class="user__details">
+                <label>Email</label>
+                <a [href]="'mailto:'+user.email">{{user.email}}</a>
+            </div>
+            <div class="user__details">
+                <label>Company</label>
+                <span>{{ user.company.name }}</span>
+            </div>
+            <div class="user__details">
+                <label>Website</label>
+                <a [href]="user.website" target="_blank">{{user.website}}</a>
+            </div>
+            <div class="user__details">
+                <label>Phone</label>
+                <a [href]="'tel:'+user.phone">{{user.phone}}</a>
+            </div>
+        </address>
+    </article>
+</div>
+  

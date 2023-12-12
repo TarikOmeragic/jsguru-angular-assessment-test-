@@ -39,9 +39,4 @@ export class PostsService {
     let url = `${this.url}${ApiPathsEnum.USERS}/${userId}`;
     return this.requestService.get<IUser>(url);
   }
-
-  // getCommentsForPost(post: IPost) {
-  //   let url = `${this.url}${ApiPathsEnum.POSTS}/${post.id}${ApiPathsEnum.COMMENTS}`;
-  //   return this.requestService.get<Array<IComment>>(url);
-  // }
 }

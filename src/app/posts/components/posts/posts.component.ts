@@ -20,7 +20,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   public posts: Array<IPost> = [];
   public users: Array<IUser> = [];
-  public columns: Array<string> = ['Id', 'Title', 'Name', 'Username'];
+  public columns: Array<string> = ['Id', 'Title', 'Author name', 'Author username'];
   public loading: boolean = true;
   public expandedElement!: IPost | null;
   public inputSearch: FormControl = new FormControl('');
@@ -122,28 +122,11 @@ export class PostsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // private getCommentsForPost(post: IPost): void {
-  //   post.loading = true;
-  //   this.subs.add(
-  //     this.postsService.getCommentsForPost(post).subscribe(
-  //       (data: Array<IComment>) => {
-  //         post.comments = data;
-  //         post.loading = false;
-  //       },
-  //       (error) => {
-  //         console.error(`Error getting comments for post ${post.id}: `, error);
-  //         post.loading = false;
-  //       }
-  //     )
-  //   );
-  // }
-
   public selectPost(post: IPost): void {
     if (this.selectedPost && this.selectedPost?.id === post.id) {
       this.selectedPost = null;
     } else {
       this.selectedPost = post;
-      // !post.comments?.length ? this.getCommentsForPost(post) : null;
     }
   }
 

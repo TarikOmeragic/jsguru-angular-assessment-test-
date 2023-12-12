@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
 
 import { SharedModule } from '../shared/shared.module';
 import { CommentsComponent } from './components/comments/comments.component';
@@ -17,9 +16,8 @@ import { PostsRoutingModule } from './posts-routing.module';
     PostDetailsComponent
   ],
   imports: [
-    CommonModule,
     PostsRoutingModule,
-    MatTableModule,
+    CommonModule,
     ReactiveFormsModule,
     SharedModule
   ]

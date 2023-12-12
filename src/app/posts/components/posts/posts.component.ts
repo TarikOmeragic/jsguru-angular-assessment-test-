@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -26,8 +25,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   public inputSearch: FormControl = new FormControl('');
   private userSearch: Array<IUser> = [];
   public selectedPost: IPost | null = null;
-
-  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
     private postsService: PostsService,

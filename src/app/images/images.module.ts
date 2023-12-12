@@ -13,8 +13,8 @@ import { ImagesRoutingModule } from './images-routing.module';
     ImagesComponent
   ],
   imports: [
-    CommonModule,
     ImagesRoutingModule,
+    CommonModule,
     MatPaginatorModule,
     FormsModule,
     SharedModule,

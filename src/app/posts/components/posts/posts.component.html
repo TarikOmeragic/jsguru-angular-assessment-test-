@@ -36,33 +36,27 @@
             *ngFor="let post of posts">
             <tr
               [class.no-bottom-border]="selectedPost?.id === post.id"
-            >
+              (click)="openPostDetails(post)">
               <td>{{post.id}}</td>
               <td>{{post.title}}</td>
               <td>{{post.user?.name}}</td>
               <td>{{post.user?.username}}</td>
               <td 
-                class="clickable"
-                (click)="selectPost(post)">
+                (click)="selectPost(post); $event.stopPropagation()">
                 <button 
                   class="button button--base"
-                  *ngIf="!post.loading && selectedPost?.id === post.id">
+                  *ngIf="selectedPost?.id === post.id">
                   Close
                 </button>
                 <button 
                   class="button button--base"
-                  *ngIf="!post.loading && selectedPost?.id !== post.id">
+                  *ngIf="selectedPost?.id !== post.id">
                   Expand
-                </button>
-                <button 
-                  class="button button--base"
-                  *ngIf="post.loading">
-                  <i class="fa fa-spinner fa-spin"></i>
                 </button>
               </td>
             </tr>
             <tr 
-              *ngIf="selectedPost?.id === post.id && !post.loading"
+              *ngIf="selectedPost?.id === post.id"
               class="no-hover">
               <td>&nbsp;</td>
               <td [attr.colspan]="3">

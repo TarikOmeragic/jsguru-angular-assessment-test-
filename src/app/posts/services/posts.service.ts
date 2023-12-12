@@ -4,9 +4,7 @@ import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
 import { RequestService } from 'src/app/core/services/request.service';
 import { IUser } from 'src/app/shared/interfaces/user.interface';
 import { environment } from 'src/environments/environment';
-import { IComment } from '../interfaces/comment.interface';
 import { IPost } from '../interfaces/post.interface';
-import { forkJoin, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,15 +18,15 @@ export class PostsService {
   ) {}
 
   getPosts(user: IUser | undefined) {
-    let url = `${this.url}${ApiPathsEnum.POSTS}`;
+    let url = `${this.url}${ApiPathsEnum.POSTS}?_embed=comments`;
     if (user) {
       url += `?userId=${user.id}`;
     }
     return this.requestService.get<Array<IPost>>(url);
   }
 
-  getPostById(post: IPost) {
-    let url = `${this.url}${ApiPathsEnum.POSTS}/${post.id}`;
+  getPostById(postId: number) {
+    let url = `${this.url}${ApiPathsEnum.POSTS}/${postId}?_embed=comments`;
     return this.requestService.get<IPost>(url);
   }
 
@@ -37,13 +35,13 @@ export class PostsService {
     return this.requestService.get<Array<IUser>>(url);
   }
 
-  getUserById(user: IUser) {
-    let url = `${this.url}${ApiPathsEnum.USERS}/${user.id}`;
+  getUserById(userId: number) {
+    let url = `${this.url}${ApiPathsEnum.USERS}/${userId}`;
     return this.requestService.get<IUser>(url);
   }
 
-  getCommentsForPost(post: IPost) {
-    let url = `${this.url}${ApiPathsEnum.POSTS}/${post.id}${ApiPathsEnum.COMMENTS}`;
-    return this.requestService.get<Array<IComment>>(url);
-  }
+  // getCommentsForPost(post: IPost) {
+  //   let url = `${this.url}${ApiPathsEnum.POSTS}/${post.id}${ApiPathsEnum.COMMENTS}`;
+  //   return this.requestService.get<Array<IComment>>(url);
+  // }
 }

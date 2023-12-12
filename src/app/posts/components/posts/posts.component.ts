@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
+import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { IUser } from 'src/app/shared/interfaces/user.interface';
-import { IComment } from '../../interfaces/comment.interface';
 import { IPost } from '../../interfaces/post.interface';
 import { PostsService } from '../../services/posts.service';
 
@@ -30,10 +31,13 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   constructor(
     private postsService: PostsService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('JSGuru | Posts');
     this.getUsers();
     this.defineSubscriptions();
   }
@@ -118,29 +122,33 @@ export class PostsComponent implements OnInit, OnDestroy {
     });
   }
 
-  private getCommentsForPost(post: IPost): void {
-    post.loading = true;
-    this.subs.add(
-      this.postsService.getCommentsForPost(post).subscribe(
-        (data: Array<IComment>) => {
-          post.comments = data;
-          post.loading = false;
-        },
-        (error) => {
-          console.error(`Error getting comments for post ${post.id}: `, error);
-          post.loading = false;
-        }
-      )
-    );
-  }
+  // private getCommentsForPost(post: IPost): void {
+  //   post.loading = true;
+  //   this.subs.add(
+  //     this.postsService.getCommentsForPost(post).subscribe(
+  //       (data: Array<IComment>) => {
+  //         post.comments = data;
+  //         post.loading = false;
+  //       },
+  //       (error) => {
+  //         console.error(`Error getting comments for post ${post.id}: `, error);
+  //         post.loading = false;
+  //       }
+  //     )
+  //   );
+  // }
 
   public selectPost(post: IPost): void {
     if (this.selectedPost && this.selectedPost?.id === post.id) {
       this.selectedPost = null;
     } else {
       this.selectedPost = post;
-      !post.comments?.length ? this.getCommentsForPost(post) : null;
+      // !post.comments?.length ? this.getCommentsForPost(post) : null;
     }
+  }
+
+  public openPostDetails(post: IPost): void {
+    this.router.navigate([`posts/${post.id}`]);
   }
 
 }

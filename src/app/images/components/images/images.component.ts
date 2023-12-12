@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 
@@ -25,10 +26,12 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private imagesService: ImagesService,
     private spinner: NgxSpinnerService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('JSGuru | Photos');
     this.checkLocalStorage();
     this.getImages();
   }

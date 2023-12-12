@@ -1,21 +1,23 @@
-<div *ngIf="comments">
+<article *ngIf="comments">
     <h1>
         Comments
     </h1>
-    <ul 
+    <ol 
         class="comments">
         <li 
             class="comments__comment"
             *ngFor="let comment of comments">
-            <div class="comments__comment__title">
-                From <i>{{comment.email}}</i>: {{comment.name}}
-            </div>
-            <div>
-                {{comment.body}}
-            </div>
+            <section>
+                <div class="comments__comment__title">
+                    From <i>{{comment.email}}</i>: {{comment.name}}
+                </div>
+                <p>
+                    {{comment.body}}
+                </p>
+            </section>
         </li>
-    </ul>
-</div>
+    </ol>
+</article>
 <div *ngIf="!comments">
     <h1>
         No comments for this post

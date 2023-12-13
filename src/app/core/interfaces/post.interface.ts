@@ -1,4 +1,4 @@
-import { IUser } from '../../shared/interfaces/user.interface';
+import { IUser } from '../../core/interfaces/user.interface';
 import { IComment } from './comment.interface';
 
 export interface IPost {

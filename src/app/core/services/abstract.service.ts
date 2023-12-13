@@ -5,7 +5,7 @@ import { CallbackFunction } from '../interfaces/callback-function.interface';
 import { RequestService } from './request.service';
 import { UrlService } from './url.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AbstractService {
 
   protected requestService: RequestService;

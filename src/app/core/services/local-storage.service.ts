@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LocalStorageService {
   constructor() {}
 
@@ -18,10 +18,6 @@ export class LocalStorageService {
 
   removeItem(key: string): void {
     localStorage.removeItem(`jsguru.${key}`);
-  }
-
-  getStoragePath(): string {
-    return 'jsguru';
   }
 
   clear(): void {

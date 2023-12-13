@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
-import { IUser } from 'src/app/shared/interfaces/user.interface';
-import { IPost } from '../../interfaces/post.interface';
+import { IPost } from 'src/app/core/interfaces/post.interface';
+import { IUser } from 'src/app/core/interfaces/user.interface';
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { PostsService } from '../../services/posts.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-post-details',
@@ -27,7 +28,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     private postService: PostsService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
-    private titleService: Title
+    private titleService: Title,
+    private loggerService: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +52,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         },
         (error) => {
-          console.error('Error getting post: ', error)
+          this.loggerService.error(`Error getting post: ${error}`);
           this.spinner.hide();
         }
       )
@@ -66,7 +68,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
           this.loading = false;
         },
         (error) => {
-          console.error('Error getting post: ', error)
+          this.loggerService.error(`Error getting post: ${error}`);
           this.loading = false;
         }
       )

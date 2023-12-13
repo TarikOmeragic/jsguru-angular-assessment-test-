@@ -5,8 +5,9 @@ import { Title } from '@angular/platform-browser';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription, debounceTime } from 'rxjs';
 
+import { IPhoto } from 'src/app/core/interfaces/image.interface';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-import { IPhoto } from '../../interfaces/image.interface';
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { ImagesService } from '../../services/images.service';
 
 @Component({
@@ -28,7 +29,8 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
     private imagesService: ImagesService,
     private spinner: NgxSpinnerService,
     private localStorageService: LocalStorageService,
-    private titleService: Title
+    private titleService: Title,
+    private loggerService: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,7 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
           this.spinner.hide();
         },
         (error) => {
-          console.error('Error getting photos: ', error)
+          this.loggerService.error(`Error getting photos: ${error}`);
           this.loading = false;
           this.spinner.hide();
         }
@@ -86,5 +88,9 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
     this.page = event.pageIndex;
     this.limit.patchValue(event.pageSize);
     this.getImages();
+  }
+
+  onImageError() {
+    console.log('onImageError')
   }
 }

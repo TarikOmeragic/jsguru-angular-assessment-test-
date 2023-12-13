@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
-import { INavbarOption } from '../../interfaces/navbar-option.interface';
+import { INavbarOption } from 'src/app/core/interfaces/navbar-option.interface';
 
 @Component({
   selector: 'app-header',

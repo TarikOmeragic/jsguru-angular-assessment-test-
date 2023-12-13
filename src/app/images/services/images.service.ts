@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
+import { IPhoto } from 'src/app/core/interfaces/image.interface';
 import { RequestService } from 'src/app/core/services/request.service';
 import { environment } from 'src/environments/environment';
-import { IPhoto } from '../interfaces/image.interface';
 
 @Injectable({
   providedIn: 'root'

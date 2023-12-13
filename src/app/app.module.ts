@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -17,12 +16,11 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule,
     HttpClientModule,
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [], // dodati interceptor
   bootstrap: [AppComponent]
 })
 export class AppModule { }

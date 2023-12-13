@@ -1,12 +1,13 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, isDevMode } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription, debounceTime } from 'rxjs';
 
-import { IUser } from 'src/app/shared/interfaces/user.interface';
-import { IPost } from '../../interfaces/post.interface';
+import { IPost } from 'src/app/core/interfaces/post.interface';
+import { IUser } from 'src/app/core/interfaces/user.interface';
+import { LoggerService } from 'src/app/core/services/logger.service';
 import { PostsService } from '../../services/posts.service';
 
 @Component({
@@ -30,7 +31,8 @@ export class PostsComponent implements OnInit, OnDestroy {
     private postsService: PostsService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private loggerService: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +72,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     this.getPosts();
   }
 
-  private getUsers(): void {
+  private getUsers(): void {    
     this.spinner.show();
     this.loading = true;
     this.subs.add(
@@ -79,9 +81,15 @@ export class PostsComponent implements OnInit, OnDestroy {
           this.users = data;
           this.getPosts();
           this.spinner.hide();
+          // Interceptor nije servis
+          // Spinner u app comp
+          // bootstrap
+          // NGRX
+          // Dodati toster
+          // Img error
         },
         (error) => {
-          console.error('Error getting users: ', error)
+          this.loggerService.error(`Error getting users: ${error}`);
           this.loading = false;
           this.spinner.hide();
         }
@@ -100,7 +108,7 @@ export class PostsComponent implements OnInit, OnDestroy {
           this.spinner.hide();
         },
         (error) => {
-          console.error('Error getting posts: ', error)
+          this.loggerService.error(`Error getting posts: ${error}`);
           this.loading = false;
           this.spinner.hide();
         }

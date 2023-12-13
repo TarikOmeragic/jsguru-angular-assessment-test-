@@ -98,7 +98,6 @@ export class PostsComponent implements OnInit, OnDestroy {
   private getUsers(): void {    
     this.loading = true;
     this.store.dispatch(UserActions.fetchUsers());
-    // TODO Dodati toster
   }
 
   private getPosts(): void {

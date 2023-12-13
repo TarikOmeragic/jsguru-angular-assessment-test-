@@ -28,17 +28,12 @@ export class PostsService {
   }
 
   getPostById(postId: number) {
-    let url = `${this.url}${ApiPathsEnum.POSTS}/${postId}?_embed=comments`;
+    let url = `${this.url}${ApiPathsEnum.POSTS}/${postId}?_embed=comments&_expand=user`;
     return this.requestService.get<IPost>(url);
   }
 
   getUsers() {
     let url = `${this.url}${ApiPathsEnum.USERS}`;
     return this.requestService.get<Array<IUser>>(url);
-  }
-
-  getUserById(userId: number) {
-    let url = `${this.url}${ApiPathsEnum.USERS}/${userId}`;
-    return this.requestService.get<IUser>(url);
   }
 }

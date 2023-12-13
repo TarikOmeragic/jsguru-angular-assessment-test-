@@ -35,7 +35,7 @@
             *ngFor="let post of posts">
             <tr
               [class.no-bottom-border]="selectedPost?.id === post.id"
-              (click)="openPostDetails(post)">
+              (click)="openPostDetails(post.id)">
               <td>{{post.id}}</td>
               <td><b>{{post.title}}</b></td>
               <td>{{post.user?.name}}</td>

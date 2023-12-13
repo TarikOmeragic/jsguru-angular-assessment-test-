@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 
 import { PostsService } from '../../../posts/services/posts.service';
 import * as PostActions from './post.actions';
@@ -27,9 +27,9 @@ export class PostEffects {
         })
     ));
 
-    fetchPostDertails = createEffect(() => this.actions$.pipe(
+    fetchPostDetails = createEffect(() => this.actions$.pipe(
         ofType(PostActions.fetchPostDetails),
-        switchMap((postAction) => {
+        exhaustMap((postAction) => {
             return this.postsService.getPostById(postAction.id).pipe(
                 map((post) => {                    
                     return PostActions.fetchPostDetailsSuccess({ post });

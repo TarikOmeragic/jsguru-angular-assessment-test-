@@ -23,18 +23,3 @@ export const fetchUsersError = createAction(
     FETCH_USERS_ERROR,
     props<{ error: string }>()
 );
-
-export const fetchUserById = createAction(
-    FETCH_USER_BY_ID,
-    props<{ id: number }>()
-);
-
-export const fetchUserByIdSuccess = createAction(
-    FETCH_USER_BY_ID_SUCCESS,
-    props<{ user: IUser }>()
-);
-
-export const fetchUserByIdError = createAction(
-    FETCH_USER_BY_ID_ERROR,
-    props<{ error: string }>()
-);

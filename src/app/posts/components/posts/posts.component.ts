@@ -62,7 +62,7 @@ export class PostsComponent implements OnInit, OnDestroy {
         (userState: UserState) => {
           this.users = userState.users;
           this.loading = userState.loading;
-          if (this.users.length) {
+          if (this.users) {
             this.getPosts();
           }
         }
@@ -114,8 +114,8 @@ export class PostsComponent implements OnInit, OnDestroy {
     }
   }
 
-  public openPostDetails(post: IPost): void {
-    this.router.navigate([`posts/${post.id}`]);
+  public openPostDetails(postId: number): void {
+    this.router.navigate([`posts/${postId}`]);
   }
 
 }

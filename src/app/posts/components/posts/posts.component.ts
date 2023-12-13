@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, isDevMode } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { IPost } from 'src/app/core/interfaces/post.interface';
@@ -29,7 +28,6 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   constructor(
     private postsService: PostsService,
-    private spinner: NgxSpinnerService,
     private router: Router,
     private titleService: Title,
     private loggerService: LoggerService
@@ -73,17 +71,14 @@ export class PostsComponent implements OnInit, OnDestroy {
   }
 
   private getUsers(): void {    
-    this.spinner.show();
     this.loading = true;
     this.subs.add(
       this.postsService.getUsers().subscribe(
         (data) => {
           this.users = data;
           this.getPosts();
-          this.spinner.hide();
           // Interceptor nije servis
-          // Spinner u app comp
-          // bootstrap
+          // environment
           // NGRX
           // Dodati toster
           // Img error
@@ -91,26 +86,22 @@ export class PostsComponent implements OnInit, OnDestroy {
         (error) => {
           this.loggerService.error(`Error getting users: ${error}`);
           this.loading = false;
-          this.spinner.hide();
         }
       )
     );
   }
 
   private getPosts(): void {
-    this.spinner.show();
     this.loading = true;
     this.subs.add(
       this.postsService.getPosts(this.userSearch).subscribe(
         (data: Array<IPost>) => {
           this.posts = data;
           this.loading = false;
-          this.spinner.hide();
         },
         (error) => {
           this.loggerService.error(`Error getting posts: ${error}`);
           this.loading = false;
-          this.spinner.hide();
         }
       )
     );

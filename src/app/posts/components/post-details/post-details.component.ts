@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription } from 'rxjs';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
@@ -27,7 +26,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private postService: PostsService,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService,
     private titleService: Title,
     private loggerService: LoggerService
   ) {}
@@ -43,17 +41,14 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getPost(): void {
-    this.spinner.show();
     this.subs.add(
       this.postService.getPostById(this.postId).subscribe(
         (data: IPost) => {
           this.post = data;
           this.getPostAuthor();
-          this.spinner.hide();
         },
         (error) => {
           this.loggerService.error(`Error getting post: ${error}`);
-          this.spinner.hide();
         }
       )
     );

@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { Title } from '@angular/platform-browser';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { IPhoto } from 'src/app/core/interfaces/image.interface';
@@ -27,7 +26,6 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private imagesService: ImagesService,
-    private spinner: NgxSpinnerService,
     private localStorageService: LocalStorageService,
     private titleService: Title,
     private loggerService: LoggerService
@@ -65,7 +63,6 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private getImages(): void {
-    this.spinner.show();
     this.loading = true;
     this.localStorageService.setItem('photosLimit', this.limit.value + '');
     this.subs.add(
@@ -73,12 +70,10 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
         (data: Array<IPhoto>) => {
           this.photos = data;
           this.loading = false;
-          this.spinner.hide();
         },
         (error) => {
           this.loggerService.error(`Error getting photos: ${error}`);
           this.loading = false;
-          this.spinner.hide();
         }
       )
     );

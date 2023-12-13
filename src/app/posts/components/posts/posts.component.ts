@@ -1,13 +1,18 @@
-import { Component, OnDestroy, OnInit, isDevMode } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { IPost } from 'src/app/core/interfaces/post.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
-import { LoggerService } from 'src/app/core/services/logger.service';
-import { PostsService } from '../../services/posts.service';
+import * as PostActions from 'src/app/core/store/post/post.actions';
+import { PostState } from 'src/app/core/store/post/post.reducer';
+import * as UserActions from 'src/app/core/store/user/user.actions';
+import { UserState } from 'src/app/core/store/user/user.reducer';
+import { selectPosts } from '../../../core/store/post/post.selectors';
+import { selectUsers } from '../../../core/store/user/user.selectors';
 
 @Component({
   selector: 'app-posts',
@@ -27,10 +32,9 @@ export class PostsComponent implements OnInit, OnDestroy {
   public selectedPost: IPost | null = null;
 
   constructor(
-    private postsService: PostsService,
     private router: Router,
     private titleService: Title,
-    private loggerService: LoggerService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +54,27 @@ export class PostsComponent implements OnInit, OnDestroy {
         .subscribe((searchString: string) => {
           this.getPostsByUserSearch(searchString.trim());
         })
+    );
+
+    this.subs.add(
+      this.store.select(selectUsers).subscribe(
+        (userState: UserState) => {
+          this.users = userState.users;
+          this.loading = userState.loading;
+          if (this.users.length) {
+            this.getPosts();
+          }
+        }
+      )
+    );
+
+    this.subs.add(
+      this.store.select(selectPosts).subscribe(
+        (postState: PostState) => {
+          this.posts = postState.posts;
+          this.loading = postState.loading;
+        }
+      )
     );
   }
 
@@ -72,37 +97,13 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   private getUsers(): void {    
     this.loading = true;
-    this.subs.add(
-      this.postsService.getUsers().subscribe(
-        (data) => {
-          this.users = data;
-          this.getPosts();
-          // NGRX
-          // Dodati toster
-          // Img error
-        },
-        (error) => {
-          this.loggerService.error(`Error getting users: ${error}`);
-          this.loading = false;
-        }
-      )
-    );
+    this.store.dispatch(UserActions.fetchUsers());
+    // TODO Dodati toster
   }
 
   private getPosts(): void {
     this.loading = true;
-    this.subs.add(
-      this.postsService.getPosts(this.userSearch).subscribe(
-        (data: Array<IPost>) => {
-          this.posts = data;
-          this.loading = false;
-        },
-        (error) => {
-          this.loggerService.error(`Error getting posts: ${error}`);
-          this.loading = false;
-        }
-      )
-    );
+    this.store.dispatch(PostActions.fetchPosts({ searchUsers: this.userSearch }));
   }
 
   public selectPost(post: IPost): void {

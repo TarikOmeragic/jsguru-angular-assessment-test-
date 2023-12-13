@@ -8,6 +8,13 @@ import { IPost } from 'src/app/core/interfaces/post.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { PostsService } from '../../services/posts.service';
+import { Store } from '@ngrx/store';
+import { fetchPostDetails } from 'src/app/core/store/post/post.actions';
+import { selectPost } from 'src/app/core/store/post/post.selectors';
+import { PostDetailsState } from 'src/app/core/store/post/post-details.reducer';
+import { fetchUserById } from 'src/app/core/store/user/user.actions';
+import { selectUser } from 'src/app/core/store/user/user.selectors';
+import { UserDetailsState } from 'src/app/core/store/user/user-details.reducer';
 
 @Component({
   selector: 'app-post-details',
@@ -27,12 +34,14 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     private postService: PostsService,
     private route: ActivatedRoute,
     private titleService: Title,
-    private loggerService: LoggerService
+    private loggerService: LoggerService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
     this.titleService.setTitle('JSGuru | Post details')
     this.postId = this.route.snapshot.params['id'];
+    this.defineSubscriptions();
     this.getPost();
   }
 
@@ -40,33 +49,31 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  private getPost(): void {
+  private defineSubscriptions(): void {
     this.subs.add(
-      this.postService.getPostById(this.postId).subscribe(
-        (data: IPost) => {
-          this.post = data;
+      this.store.select(selectPost).subscribe((postState: PostDetailsState) => {
+        this.post = postState.post;
+        this.loading = postState.loading;
+        if (this.post) {
           this.getPostAuthor();
-        },
-        (error) => {
-          this.loggerService.error(`Error getting post: ${error}`);
         }
-      )
+      })
     );
+
+    this.subs.add(
+      this.store.select(selectUser).subscribe((userState: UserDetailsState) => {
+        this.user = userState.user;
+        this.loading = userState.loading;
+      })
+    );
+  }
+
+  private getPost(): void {
+    this.store.dispatch(fetchPostDetails({ id: this.postId }));
   }
 
   private getPostAuthor(): void {
     this.loading = true;
-    this.subs.add(
-      this.postService.getUserById(this.post.userId).subscribe(
-        (data: IUser) => {
-          this.user = data;
-          this.loading = false;
-        },
-        (error) => {
-          this.loggerService.error(`Error getting post: ${error}`);
-          this.loading = false;
-        }
-      )
-    );
+    this.store.dispatch(fetchUserById({ id: this.post.userId }));
   }
 }

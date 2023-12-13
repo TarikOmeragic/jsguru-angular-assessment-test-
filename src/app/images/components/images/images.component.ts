@@ -2,12 +2,16 @@ import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular
 import { FormControl, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { Title } from '@angular/platform-browser';
+import { Store } from '@ngrx/store';
 import { Subscription, debounceTime } from 'rxjs';
 
 import { IPhoto } from 'src/app/core/interfaces/image.interface';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { LoggerService } from 'src/app/core/services/logger.service';
 import { ImagesService } from '../../services/images.service';
+import * as PhotoActions from '../../../core/store/photo/photo.actions';
+import { selectPhotos } from '../../../core/store/photo/photo.selectors';
+import { PhotoState } from 'src/app/core/store/photo/photo.reducer';
 
 @Component({
   selector: 'app-images',
@@ -17,7 +21,7 @@ import { ImagesService } from '../../services/images.service';
 export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private subs: Subscription = new Subscription();
-  public loading: boolean = false;
+  public loading: boolean = true;
   public photos: Array<IPhoto> = [];
   public page: number = 0;
   public limit: FormControl = new FormControl(10, [Validators.min(1)]);
@@ -28,7 +32,8 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
     private imagesService: ImagesService,
     private localStorageService: LocalStorageService,
     private titleService: Title,
-    private loggerService: LoggerService
+    private loggerService: LoggerService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +59,15 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
           this.getImages();
         })
     );
+
+    this.subs.add(
+      this.store.select(selectPhotos).subscribe(
+        (photoState: PhotoState) => {
+          this.photos = photoState.photos;
+          this.loading = photoState.loading;
+        }
+      )
+    );
   }
 
   private checkLocalStorage(): void {
@@ -64,28 +78,12 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private getImages(): void {
     this.loading = true;
-    this.localStorageService.setItem('photosLimit', this.limit.value + '');
-    this.subs.add(
-      this.imagesService.getPhotos(this.page + 1, this.limit.value).subscribe(
-        (data: Array<IPhoto>) => {
-          this.photos = data;
-          this.loading = false;
-        },
-        (error) => {
-          this.loggerService.error(`Error getting photos: ${error}`);
-          this.loading = false;
-        }
-      )
-    );
+    this.store.dispatch(PhotoActions.fetchPhotos({ value: { page: this.page + 1, limit: this.limit.value } }));
   }
 
   changePage(event: any) {
     this.page = event.pageIndex;
     this.limit.patchValue(event.pageSize);
     this.getImages();
-  }
-
-  onImageError() {
-    console.log('onImageError')
   }
 }

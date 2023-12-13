@@ -3,12 +3,22 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
+import { PhotoEffects } from './core/store/photo/photo.effects';
+import { photoReducer } from './core/store/photo/photo.reducer';
+import { postDetailsReducer } from './core/store/post/post-details.reducer';
+import { PostEffects } from './core/store/post/post.effects';
+import { postReducer } from './core/store/post/post.reducer';
+import { userDetailsReducer } from './core/store/user/user-details.reducer';
+import { UserEffects } from './core/store/user/user.effects';
+import { userReducer } from './core/store/user/user.reducer';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -22,7 +32,15 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     SharedModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    StoreModule.forRoot({
+      posts: postReducer,
+      post: postDetailsReducer,
+      photos: photoReducer,
+      users: userReducer,
+      user: userDetailsReducer
+    }),
+    EffectsModule.forRoot([PostEffects, PhotoEffects, UserEffects])
   ],
   providers: [
     ErrorInterceptor,

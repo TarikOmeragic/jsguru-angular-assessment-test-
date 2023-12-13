@@ -7,6 +7,14 @@
     gap: 1rem;
     position: relative;
 
+    @include respond(tablet-portrait) {
+        width: 50%;
+    }
+
+    @include respond(phone) {
+        width: 100%;
+    }
+
     label {
         font-weight: 600;
         font-size: 1.5rem;

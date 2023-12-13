@@ -9,5 +9,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        @include respond(tablet-portrait) {
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
     }
 }

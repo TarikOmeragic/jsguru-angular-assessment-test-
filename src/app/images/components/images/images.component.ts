@@ -7,6 +7,7 @@ import { Subscription, debounceTime } from 'rxjs';
 
 import { IPhoto } from 'src/app/core/interfaces/image.interface';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
+import { AppState } from 'src/app/core/store/app.state';
 import { PhotoState } from 'src/app/core/store/photo/photo.reducer';
 import * as PhotoActions from '../../../core/store/photo/photo.actions';
 import { selectPhotos } from '../../../core/store/photo/photo.selectors';
@@ -29,7 +30,7 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private localStorageService: LocalStorageService,
     private titleService: Title,
-    private store: Store
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {

@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
 import { IPost } from 'src/app/core/interfaces/post.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
+import { AppState } from 'src/app/core/store/app.state';
 import { PostDetailsState } from 'src/app/core/store/post/post-details.reducer';
 import { fetchPostDetails } from 'src/app/core/store/post/post.actions';
 import { selectPost } from 'src/app/core/store/post/post.selectors';
@@ -31,7 +32,7 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private titleService: Title,
-    private store: Store
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +49,9 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   private defineSubscriptions(): void {
     this.subs.add(
       this.store.select(selectPost).subscribe((postState: PostDetailsState) => {
-        this.post = postState.post;
+        if (postState.post) {
+          this.post =  postState.post;
+        }
         this.loading = postState.loading;
         if (this.post) {
           this.getPostAuthor();
@@ -58,7 +61,9 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
 
     this.subs.add(
       this.store.select(selectUser).subscribe((userState: UserDetailsState) => {
-        this.user = userState.user;
+        if (userState.user) {
+          this.user = userState.user;
+        }
         this.loading = userState.loading;
       })
     );

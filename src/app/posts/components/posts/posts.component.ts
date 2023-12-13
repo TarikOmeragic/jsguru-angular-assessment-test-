@@ -7,6 +7,7 @@ import { Subscription, debounceTime } from 'rxjs';
 
 import { IPost } from 'src/app/core/interfaces/post.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
+import { AppState } from 'src/app/core/store/app.state';
 import * as PostActions from 'src/app/core/store/post/post.actions';
 import { PostState } from 'src/app/core/store/post/post.reducer';
 import * as UserActions from 'src/app/core/store/user/user.actions';
@@ -34,7 +35,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private titleService: Title,
-    private store: Store
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {

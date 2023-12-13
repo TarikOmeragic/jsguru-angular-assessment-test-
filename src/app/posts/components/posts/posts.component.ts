@@ -93,7 +93,11 @@ export class PostsComponent implements OnInit, OnDestroy {
     } else {
       this.userSearch = [];
     }
-    this.getPosts();
+    if (searchString.length && !this.userSearch.length) {
+      this.posts = [];
+    } else {
+      this.getPosts();
+    }
   }
 
   private getUsers(): void {    

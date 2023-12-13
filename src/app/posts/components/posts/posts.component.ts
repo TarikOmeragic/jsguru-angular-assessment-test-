@@ -77,8 +77,6 @@ export class PostsComponent implements OnInit, OnDestroy {
         (data) => {
           this.users = data;
           this.getPosts();
-          // Interceptor nije servis
-          // environment
           // NGRX
           // Dodati toster
           // Img error

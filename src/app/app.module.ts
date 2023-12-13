@@ -7,6 +7,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 import { SharedModule } from './shared/shared.module';
 
@@ -24,10 +25,16 @@ import { SharedModule } from './shared/shared.module';
     NgxSpinnerModule
   ],
   providers: [
+    ErrorInterceptor,
     LoaderInterceptor,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],

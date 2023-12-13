@@ -1,5 +1,3 @@
-import { IGeoData } from "./geo-data.interface";
-
 export interface IUser {
     id: number;
     name: string;
@@ -23,4 +21,9 @@ export interface IUserCompany {
     name: string;
     catchPhrase: string;
     bs: string;
+}
+
+export interface IGeoData {
+    lat: string;
+    lng: string;
 }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
-import { RequestService } from 'src/app/core/services/request.service';
-import { IUser } from 'src/app/core/interfaces/user.interface';
-import { environment } from 'src/environments/environment';
 import { IPost } from 'src/app/core/interfaces/post.interface';
+import { IUser } from 'src/app/core/interfaces/user.interface';
+import { RequestService } from 'src/app/core/services/request.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'

@@ -7,11 +7,9 @@ import { Subscription, debounceTime } from 'rxjs';
 
 import { IPhoto } from 'src/app/core/interfaces/image.interface';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-import { LoggerService } from 'src/app/core/services/logger.service';
-import { ImagesService } from '../../services/images.service';
+import { PhotoState } from 'src/app/core/store/photo/photo.reducer';
 import * as PhotoActions from '../../../core/store/photo/photo.actions';
 import { selectPhotos } from '../../../core/store/photo/photo.selectors';
-import { PhotoState } from 'src/app/core/store/photo/photo.reducer';
 
 @Component({
   selector: 'app-images',
@@ -29,10 +27,8 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(
-    private imagesService: ImagesService,
     private localStorageService: LocalStorageService,
     private titleService: Title,
-    private loggerService: LoggerService,
     private store: Store
   ) {}
 

@@ -1,20 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
 import { IPost } from 'src/app/core/interfaces/post.interface';
 import { IUser } from 'src/app/core/interfaces/user.interface';
-import { LoggerService } from 'src/app/core/services/logger.service';
-import { PostsService } from '../../services/posts.service';
-import { Store } from '@ngrx/store';
+import { PostDetailsState } from 'src/app/core/store/post/post-details.reducer';
 import { fetchPostDetails } from 'src/app/core/store/post/post.actions';
 import { selectPost } from 'src/app/core/store/post/post.selectors';
-import { PostDetailsState } from 'src/app/core/store/post/post-details.reducer';
+import { UserDetailsState } from 'src/app/core/store/user/user-details.reducer';
 import { fetchUserById } from 'src/app/core/store/user/user.actions';
 import { selectUser } from 'src/app/core/store/user/user.selectors';
-import { UserDetailsState } from 'src/app/core/store/user/user-details.reducer';
 
 @Component({
   selector: 'app-post-details',
@@ -31,10 +29,8 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   public ApiPathsEnum = ApiPathsEnum;
 
   constructor(
-    private postService: PostsService,
     private route: ActivatedRoute,
     private titleService: Title,
-    private loggerService: LoggerService,
     private store: Store
   ) {}
 

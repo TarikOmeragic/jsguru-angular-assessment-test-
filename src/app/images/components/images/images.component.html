@@ -9,7 +9,8 @@
             <img 
                 [src]="image.thumbnailUrl" 
                 [alt]="'&nbsp;ID: ' + image.id" 
-                [title]="image.title">
+                [title]="image.title"
+                onError="this.onerror=null;this.src='/assets/svg/default-image.svg'">
         </div>
     </ng-container>
     <ng-container 

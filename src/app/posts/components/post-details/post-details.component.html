@@ -1,5 +1,5 @@
  <div 
-    *ngIf="post && user" 
+    *ngIf="post" 
     class="wrapper">
     <a [routerLink]="ApiPathsEnum.POSTS">
         <i class="fa fa-solid fa-arrow-left"></i>
@@ -9,32 +9,33 @@
         <section>{{ post.body }}</section>
         <app-comments [comments]="post.comments"></app-comments>
     </article>
-    <article class="user">
+    <article class="user"
+        *ngIf="post.user">
         <h3>Author</h3>
         <address>
             <div class="user__details">
                 <label>Name</label>
-                <span>{{ user.name }}</span>
+                <span>{{ post.user.name }}</span>
             </div>
             <div class="user__details">
                 <label>Username</label>
-                <span>{{ user.username }}</span>
+                <span>{{ post.user.username }}</span>
             </div>
             <div class="user__details">
                 <label>Email</label>
-                <a [href]="'mailto:'+user.email">{{user.email}}</a>
+                <a [href]="'mailto:'+post.user.email">{{ post.user.email }}</a>
             </div>
             <div class="user__details">
                 <label>Company</label>
-                <span>{{ user.company.name }}</span>
+                <span>{{ post.user.company.name }}</span>
             </div>
             <div class="user__details">
                 <label>Website</label>
-                <a [href]="user.website" target="_blank">{{user.website}}</a>
+                <a [href]="post.user.website" target="_blank">{{ post.user.website }}</a>
             </div>
             <div class="user__details">
                 <label>Phone</label>
-                <a [href]="'tel:'+user.phone">{{user.phone}}</a>
+                <a [href]="'tel:'+post.user.phone">{{ post.user.phone }}</a>
             </div>
         </address>
     </article>

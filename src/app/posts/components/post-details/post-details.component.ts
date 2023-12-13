@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 
 import { ApiPathsEnum } from 'src/app/core/enums/api-paths.enums';
 import { IPost } from 'src/app/core/interfaces/post.interface';
-import { IUser } from 'src/app/core/interfaces/user.interface';
 import { AppState } from 'src/app/core/store/app.state';
 import { PostDetailsState } from 'src/app/core/store/post/post-details.reducer';
 import { fetchPostDetails } from 'src/app/core/store/post/post.actions';
@@ -22,7 +21,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
   private subs: Subscription = new Subscription();
   public postId!: number;
   public post!: IPost;
-  public user!: IUser | null | undefined;
   public loading: boolean = false;
   public ApiPathsEnum = ApiPathsEnum;
 
@@ -48,7 +46,6 @@ export class PostDetailsComponent implements OnInit, OnDestroy {
       this.store.select(selectPost).subscribe((postState: PostDetailsState) => {
         if (postState.post) {
           this.post =  postState.post;
-          this.user =  postState.post.user;
         }
         this.loading = postState.loading;
       })

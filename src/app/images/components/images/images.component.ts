@@ -23,7 +23,7 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   public loading: boolean = true;
   public photos: Array<IPhoto> = [];
   public page: number = 0;
-  public limit: FormControl = new FormControl(10, [Validators.min(1)]);
+  public limit: FormControl = new FormControl(10, [Validators.min(1), Validators.max(5000)]);
 
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
@@ -74,8 +74,10 @@ export class ImagesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private getImages(): void {
-    this.loading = true;
-    this.store.dispatch(PhotoActions.fetchPhotos({ value: { page: this.page + 1, limit: this.limit.value } }));
+    if (this.limit.valid) {
+      this.loading = true;
+      this.store.dispatch(PhotoActions.fetchPhotos({ value: { page: this.page + 1, limit: this.limit.value } }));
+    }
   }
 
   changePage(event: any) {
